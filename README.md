@@ -31,11 +31,11 @@ After that, I used a **classical decomposition** technique. This method splits t
 * **Seasonality:** The repeating yearly patterns.  
 * **Residuals:** The random, unpredictable part of the data.
 
-![][image1]
+![1](img/1.png)
 
 This step was a good "sanity check." The seasonal component was clearly very strong, which suggested that basic models would likely have trouble. This plot shows the strong yearly pattern:
 
-![][image2]
+![2](img/2.png)
 
 ### **4\. Splitting the Data (Carefully\!)**
 
@@ -46,7 +46,7 @@ Forecasting isn't only about building a model; it's about seeing if it can *real
 
 The main challenge is that you **must respect the chronological order**. Shuffling the data, as you might in other projects, is not allowed\!
 
-![][image3]
+![3](img/3.png)
 
 ### **5\. Is the Data "Stable"? (Stationarity)**
 
@@ -64,7 +64,7 @@ First, I tried simple baseline models. They are often bad at predicting, but the
 
 Here is how they performed:
 
-![][image4]
+![4](img/4.png)
 
 Out of these simple models, the **Drifted Forecast** performed the best, achieving a solid 11% mean absolute percentage error (MAPE).
 
@@ -80,7 +80,8 @@ Now it was time for the more advanced models.
 
 To get the parameters right, you have to look at an Autocorrelation Function (ACF) plot. This shows how current values relate to past values (lags).
 
-plot\_acf(time\_series\['London Mean Roadside:Nitrogen Dioxide (ug/m3)'\])![][image5]
+plot\_acf(time\_series\['London Mean Roadside:Nitrogen Dioxide (ug/m3)'\])
+![5](img/5.png)
 
 * **What this plot told me:**  
   * Strong correlation at lags 1-2 means the series has "memory."  
@@ -103,9 +104,9 @@ plot\_acf(time\_series\['London Mean Roadside:Nitrogen Dioxide (ug/m3)'\])![][im
 * It automatically detects trends and seasonality.  
 * Its main drawback was that it sometimes **over-smoothed** the data, flattening out the highest and lowest spikes.
 
-![][image6]
+![6](img/6.png)
 
-![][image7]
+![7](img/7.png)
 
 **XGBoost**
 
@@ -116,7 +117,7 @@ plot\_acf(time\_series\['London Mean Roadside:Nitrogen Dioxide (ug/m3)'\])![][im
 XGBoost MAE: 7.52  
 XGBoost MAPE: 0.18  
 XGBoost RMSE: 8.72  
-![][image8]
+![8](img/8.png)
 
 ### **7\. Evaluating the Models**
 
@@ -128,7 +129,7 @@ To judge the models, I used a few key metrics:
 
 Here is how all the metrics stacked up against each other:
 
-![][image9]
+![9](img/9.png)
 
 Not one of the models was perfect, and they all had tradeoffs:
 
